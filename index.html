@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b66d6">
+  <meta name="description" content="Convert distance, temperature, and weight instantly.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Unit Converter">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Everyday Unit Converter</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header>
+      <p class="eyebrow">QUICK TOOLS</p>
+      <h1>Everyday Unit Converter</h1>
+      <p class="subtitle">Fast, accurate conversions for distance, temperature, and weight.</p>
+    </header>
+
+    <section class="converter" aria-labelledby="converter-title">
+      <div class="tabs" role="tablist" aria-label="Conversion category">
+        <button class="tab active" role="tab" aria-selected="true" data-category="distance">Distance</button>
+        <button class="tab" role="tab" aria-selected="false" data-category="temperature">Temperature</button>
+        <button class="tab" role="tab" aria-selected="false" data-category="weight">Weight</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-heading">
+          <span class="category-icon" id="category-icon" aria-hidden="true">↔</span>
+          <div>
+            <p class="panel-label" id="category-label">DISTANCE</p>
+            <h2 id="converter-title">Miles to Kilometers</h2>
+          </div>
+        </div>
+
+        <label for="input-value">Value to convert</label>
+        <div class="input-row">
+          <input id="input-value" type="number" inputmode="decimal" placeholder="Enter a number" step="any">
+          <select id="from-unit" aria-label="Unit to convert from"></select>
+        </div>
+
+        <button id="swap-button" class="swap" type="button" aria-label="Swap conversion direction">
+          <span aria-hidden="true">⇅</span> Swap units
+        </button>
+
+        <label for="output-value">Converted value</label>
+        <div class="input-row result-row">
+          <output id="output-value" for="input-value">—</output>
+          <span id="to-unit" class="unit-output"></span>
+        </div>
+
+        <p id="message" class="message" role="status" aria-live="polite">Enter a value to see the result.</p>
+        <button id="convert-button" class="primary-button" type="button">Convert</button>
+      </div>
+    </section>
+
+    <p class="footer-note">Works offline after your first visit.</p>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>
