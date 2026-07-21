@@ -138,5 +138,7 @@ swapButton.addEventListener("click", () => {
 selectCategory("distance");
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js"));
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js", { updateViaCache: "none" });
+  });
 }
