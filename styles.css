@@ -31,6 +31,34 @@ button, input, select { font: inherit; }
 
 header { margin-bottom: 24px; }
 
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 7px;
+}
+
+.header-bar .eyebrow { margin-bottom: 0; }
+
+.language-picker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.language-picker select {
+  width: auto;
+  min-height: 34px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background-color: rgba(255, 255, 255, .85);
+}
+
 .eyebrow, .panel-label {
   margin: 0 0 7px;
   color: var(--blue);
@@ -236,6 +264,13 @@ output {
   .panel { padding: 21px 18px; }
   .tab { font-size: .82rem; }
   .input-row { grid-template-columns: minmax(0, 1fr) 108px; }
+  .language-picker > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

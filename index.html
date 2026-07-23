@@ -15,13 +15,23 @@
 <body>
   <main class="app-shell">
     <header>
-      <p class="eyebrow">QUICK TOOLS</p>
-      <h1>Everyday Unit Converter</h1>
-      <p class="subtitle">Created by Carlos Barriosnuevo — fast, accurate conversions for distance, temperature, and weight.</p>
+      <div class="header-bar">
+        <p class="eyebrow" id="eyebrow">QUICK TOOLS</p>
+        <label class="language-picker" for="language-select">
+          <span id="language-label">Language</span>
+          <select id="language-select" aria-label="Language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+      </div>
+      <h1 id="page-title">Everyday Unit Converter</h1>
+      <p class="subtitle" id="subtitle">Created by Carlos Barriosnuevo — fast, accurate conversions for distance, temperature, and weight.</p>
     </header>
 
     <section class="converter" aria-labelledby="converter-title">
-      <div class="tabs" role="tablist" aria-label="Conversion category">
+      <div class="tabs" id="category-tabs" role="tablist" aria-label="Conversion category">
         <button class="tab active" role="tab" aria-selected="true" data-category="distance">Distance</button>
         <button class="tab" role="tab" aria-selected="false" data-category="temperature">Temperature</button>
         <button class="tab" role="tab" aria-selected="false" data-category="weight">Weight</button>
@@ -36,17 +46,17 @@
           </div>
         </div>
 
-        <label for="input-value">Value to convert</label>
+        <label id="input-label" for="input-value">Value to convert</label>
         <div class="input-row">
           <input id="input-value" type="number" inputmode="decimal" placeholder="Enter a number" step="any">
           <select id="from-unit" aria-label="Unit to convert from"></select>
         </div>
 
         <button id="swap-button" class="swap" type="button" aria-label="Swap conversion direction">
-          <span aria-hidden="true">⇅</span> Swap units
+          <span aria-hidden="true">⇅</span> <span id="swap-text">Swap units</span>
         </button>
 
-        <label for="output-value">Converted value</label>
+        <label id="output-label" for="output-value">Converted value</label>
         <div class="input-row result-row">
           <output id="output-value" for="input-value">—</output>
           <select id="to-unit" class="unit-output" aria-label="Unit to convert to"></select>
@@ -57,7 +67,7 @@
       </div>
     </section>
 
-    <p class="footer-note">Works offline after your first visit.</p>
+    <p class="footer-note" id="footer-note">Works offline after your first visit.</p>
   </main>
   <script src="app.js" defer></script>
 </body>
