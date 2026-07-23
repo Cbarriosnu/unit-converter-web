@@ -3,34 +3,26 @@ const categories = {
     label: "DISTANCE",
     icon: "↔",
     units: [
-      { id: "miles", label: "Miles", short: "mi" },
-      { id: "kilometers", label: "Kilometers", short: "km" }
-    ],
-    convert(value, from) {
-      return from === "miles" ? value * 1.609344 : value / 1.609344;
-    }
+      { id: "miles", label: "Miles", short: "mi", toBase: value => value * 1.609344, fromBase: value => value / 1.609344 },
+      { id: "kilometers", label: "Kilometers", short: "km", toBase: value => value, fromBase: value => value }
+    ]
   },
   temperature: {
     label: "TEMPERATURE",
     icon: "°",
     units: [
-      { id: "celsius", label: "Celsius", short: "°C" },
-      { id: "fahrenheit", label: "Fahrenheit", short: "°F" }
-    ],
-    convert(value, from) {
-      return from === "celsius" ? (value * 9 / 5) + 32 : (value - 32) * 5 / 9;
-    }
+      { id: "celsius", label: "Celsius", short: "°C", toBase: value => value, fromBase: value => value },
+      { id: "fahrenheit", label: "Fahrenheit", short: "°F", toBase: value => (value - 32) * 5 / 9, fromBase: value => (value * 9 / 5) + 32 },
+      { id: "kelvin", label: "Kelvin", short: "K", toBase: value => value - 273.15, fromBase: value => value + 273.15 }
+    ]
   },
   weight: {
     label: "WEIGHT",
     icon: "⚖",
     units: [
-      { id: "pounds", label: "Pounds", short: "lb" },
-      { id: "kilograms", label: "Kilograms", short: "kg" }
-    ],
-    convert(value, from) {
-      return from === "pounds" ? value * 0.45359237 : value / 0.45359237;
-    }
+      { id: "pounds", label: "Pounds", short: "lb", toBase: value => value * 0.45359237, fromBase: value => value / 0.45359237 },
+      { id: "kilograms", label: "Kilograms", short: "kg", toBase: value => value, fromBase: value => value }
+    ]
   }
 };
 
@@ -53,7 +45,7 @@ function currentConfig() {
 }
 
 function destinationUnit() {
-  return currentConfig().units.find(unit => unit.id !== fromUnit.value);
+  return currentConfig().units.find(unit => unit.id === toUnit.value);
 }
 
 function updateDirection() {
@@ -61,7 +53,6 @@ function updateDirection() {
   const from = config.units.find(unit => unit.id === fromUnit.value);
   const to = destinationUnit();
   title.textContent = `${from.label} to ${to.label}`;
-  toUnit.textContent = to.short;
   calculate(false);
 }
 
@@ -77,12 +68,16 @@ function selectCategory(category) {
 
   categoryLabel.textContent = config.label;
   categoryIcon.textContent = config.icon;
-  fromUnit.replaceChildren(...config.units.map(unit => {
+  const createOptions = () => config.units.map(unit => {
     const option = document.createElement("option");
     option.value = unit.id;
     option.textContent = unit.label;
     return option;
-  }));
+  });
+  fromUnit.replaceChildren(...createOptions());
+  toUnit.replaceChildren(...createOptions());
+  fromUnit.value = config.units[0].id;
+  toUnit.value = config.units[1].id;
   input.value = "";
   output.textContent = "—";
   message.textContent = "Enter a value to see the result.";
@@ -116,7 +111,10 @@ function calculate(showError = true) {
     return;
   }
 
-  const result = currentConfig().convert(value, fromUnit.value);
+  const config = currentConfig();
+  const from = config.units.find(unit => unit.id === fromUnit.value);
+  const to = config.units.find(unit => unit.id === toUnit.value);
+  const result = to.fromBase(from.toBase(value));
   output.textContent = formatNumber(result);
   message.textContent = "Conversion complete.";
   message.classList.remove("error");
@@ -124,14 +122,16 @@ function calculate(showError = true) {
 
 tabs.forEach(tab => tab.addEventListener("click", () => selectCategory(tab.dataset.category)));
 fromUnit.addEventListener("change", updateDirection);
+toUnit.addEventListener("change", updateDirection);
 convertButton.addEventListener("click", () => calculate(true));
 input.addEventListener("input", () => calculate(false));
 input.addEventListener("keydown", event => {
   if (event.key === "Enter") calculate(true);
 });
 swapButton.addEventListener("click", () => {
-  const to = destinationUnit();
-  fromUnit.value = to.id;
+  const oldFrom = fromUnit.value;
+  fromUnit.value = toUnit.value;
+  toUnit.value = oldFrom;
   updateDirection();
 });
 
