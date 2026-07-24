@@ -1,13 +1,13 @@
 const translations = {
   en: {
     pageTitle: "Everyday Unit Converter",
-    description: "Convert distance, temperature, and weight instantly.",
+    description: "Convert distance, speed, temperature, and weight instantly.",
     eyebrow: "QUICK TOOLS",
     language: "Language",
-    subtitle: "Created by Carlos Barriosnuevo — fast, accurate conversions for distance, temperature, and weight.",
+    subtitle: "Created by Carlos Barriosnuevo — fast, accurate conversions for distance, speed, temperature, and weight.",
     categoryAria: "Conversion category",
-    categories: { distance: "Distance", temperature: "Temperature", weight: "Weight" },
-    units: { miles: "Miles", kilometers: "Kilometers", celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin", pounds: "Pounds", kilograms: "Kilograms" },
+    categories: { distance: "Distance", speed: "Speed", temperature: "Temperature", weight: "Weight" },
+    units: { miles: "Miles", kilometers: "Kilometers", inches: "Inches", centimeters: "Centimeters", milesPerHour: "Miles per hour", kilometersPerHour: "Kilometers per hour", celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin", pounds: "Pounds", kilograms: "Kilograms" },
     direction: "{from} to {to}",
     inputLabel: "Value to convert",
     inputPlaceholder: "Enter a number",
@@ -25,13 +25,13 @@ const translations = {
   },
   es: {
     pageTitle: "Convertidor de Unidades Cotidianas",
-    description: "Convierte distancias, temperaturas y pesos al instante.",
+    description: "Convierte distancias, velocidades, temperaturas y pesos al instante.",
     eyebrow: "HERRAMIENTAS RÁPIDAS",
     language: "Idioma",
-    subtitle: "Creado por Carlos Barriosnuevo — conversiones rápidas y precisas de distancia, temperatura y peso.",
+    subtitle: "Creado por Carlos Barriosnuevo — conversiones rápidas y precisas de distancia, velocidad, temperatura y peso.",
     categoryAria: "Categoría de conversión",
-    categories: { distance: "Distancia", temperature: "Temperatura", weight: "Peso" },
-    units: { miles: "Millas", kilometers: "Kilómetros", celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin", pounds: "Libras", kilograms: "Kilogramos" },
+    categories: { distance: "Distancia", speed: "Velocidad", temperature: "Temperatura", weight: "Peso" },
+    units: { miles: "Millas", kilometers: "Kilómetros", inches: "Pulgadas", centimeters: "Centímetros", milesPerHour: "Millas por hora", kilometersPerHour: "Kilómetros por hora", celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin", pounds: "Libras", kilograms: "Kilogramos" },
     direction: "{from} a {to}",
     inputLabel: "Valor a convertir",
     inputPlaceholder: "Ingresa un número",
@@ -49,13 +49,13 @@ const translations = {
   },
   fr: {
     pageTitle: "Convertisseur d’Unités Quotidien",
-    description: "Convertissez instantanément les distances, les températures et les poids.",
+    description: "Convertissez instantanément les distances, les vitesses, les températures et les poids.",
     eyebrow: "OUTILS RAPIDES",
     language: "Langue",
-    subtitle: "Créé par Carlos Barriosnuevo — conversions rapides et précises de distance, de température et de poids.",
+    subtitle: "Créé par Carlos Barriosnuevo — conversions rapides et précises de distance, de vitesse, de température et de poids.",
     categoryAria: "Catégorie de conversion",
-    categories: { distance: "Distance", temperature: "Température", weight: "Poids" },
-    units: { miles: "Miles", kilometers: "Kilomètres", celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin", pounds: "Livres", kilograms: "Kilogrammes" },
+    categories: { distance: "Distance", speed: "Vitesse", temperature: "Température", weight: "Poids" },
+    units: { miles: "Miles", kilometers: "Kilomètres", inches: "Pouces", centimeters: "Centimètres", milesPerHour: "Miles par heure", kilometersPerHour: "Kilomètres par heure", celsius: "Celsius", fahrenheit: "Fahrenheit", kelvin: "Kelvin", pounds: "Livres", kilograms: "Kilogrammes" },
     direction: "{from} en {to}",
     inputLabel: "Valeur à convertir",
     inputPlaceholder: "Saisissez un nombre",
@@ -77,8 +77,17 @@ const categories = {
   distance: {
     icon: "↔",
     units: [
-      { id: "miles", toBase: value => value * 1.609344, fromBase: value => value / 1.609344 },
-      { id: "kilometers", toBase: value => value, fromBase: value => value }
+      { id: "miles", toBase: value => value * 100000 * 1.609344, fromBase: value => value / (100000 * 1.609344) },
+      { id: "kilometers", toBase: value => value * 100000, fromBase: value => value / 100000 },
+      { id: "inches", toBase: value => value * 2.54, fromBase: value => value / 2.54 },
+      { id: "centimeters", toBase: value => value, fromBase: value => value }
+    ]
+  },
+  speed: {
+    icon: "➜",
+    units: [
+      { id: "milesPerHour", toBase: value => value * 1.609344, fromBase: value => value / 1.609344 },
+      { id: "kilometersPerHour", toBase: value => value, fromBase: value => value }
     ]
   },
   temperature: {

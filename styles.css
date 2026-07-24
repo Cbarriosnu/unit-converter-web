@@ -92,7 +92,7 @@ h1 {
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   padding: 7px;
   background: #eaf0f7;
@@ -262,7 +262,7 @@ output {
 @media (max-width: 410px) {
   .app-shell { width: min(100% - 20px, 560px); padding-top: 24px; }
   .panel { padding: 21px 18px; }
-  .tab { font-size: .82rem; }
+  .tab { font-size: .75rem; }
   .input-row { grid-template-columns: minmax(0, 1fr) 108px; }
   .language-picker > span {
     position: absolute;
